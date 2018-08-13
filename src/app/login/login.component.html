@@ -1,0 +1,34 @@
+<div class="grid-container">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              {{title}}
+            </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <mat-form-field>
+                  <input matInput placeholder="Email" formControlName="email" required>
+                  <mat-error *ngIf="loginForm.controls.email.invalid">{{getErrorMessage(1)}}</mat-error>
+                </mat-form-field>
+                <br><br>
+
+                <mat-form-field>
+                  <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                  <mat-error *ngIf="loginForm.controls.password.invalid">{{getErrorMessage(2)}}</mat-error>
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </mat-form-field>
+                <br><br><br>
+
+                <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
