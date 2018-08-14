@@ -48,6 +48,7 @@ import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { TitleService } from './Services/title.service';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,12 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [TitleService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule { 
+  constructor(titleService: TitleService) {
+    titleService.init();
+  }
+}

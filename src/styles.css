@@ -3,6 +3,7 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body{
-	background-color: #e91e63;
+	background-color: #f8f9fa !important;
 	font-family: 'Roboto', sans-serif;
+	margin: 0;
 }

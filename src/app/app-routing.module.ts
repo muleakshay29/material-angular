@@ -7,10 +7,10 @@ import { ListComponent } from './list/list.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, data: {title: "Dashbord"} },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'list', component: ListComponent } 
+  { path: 'home', component: HomeComponent, data: {title: "Dashbord"} },
+  { path: 'list', component: ListComponent, data: {title: "List"} } 
 ];
 
 @NgModule({

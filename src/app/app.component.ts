@@ -18,4 +18,11 @@ export class AppComponent {
         this.email.hasError('email') ? 'Not a valid email' :
             '';
   }
+
+  getMyStyles() {
+    let myStyles = {
+       'background': '#f8f9fa'
+    };
+    return myStyles;
+  } 
 }
