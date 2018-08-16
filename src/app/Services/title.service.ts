@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-const APP_TITLE = 'NoDice!';
+const APP_TITLE = 'Mohalla';
 const SEPARATOR = ' > ';
 
 @Injectable({
@@ -39,7 +39,7 @@ export class TitleService {
         }
       })
     )
-    .subscribe((pathString) => this.titleService.setTitle(`${APP_TITLE} ${pathString}`));
+    .subscribe((pathString) => this.titleService.setTitle(`${APP_TITLE} ${SEPARATOR} ${pathString}`));
   }
 
   static ucFirst(string) {

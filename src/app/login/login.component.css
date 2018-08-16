@@ -6,8 +6,8 @@
     position: absolute;
     top: 15px;
     left: 15px;
-    right: 15px;
-    bottom: 15px;
+    /*right: 15px;
+    bottom: 15px;*/
   }
 
   .more-button {
@@ -16,6 +16,22 @@
     right: 10px;
   }
   
-  .dashboard-card-content {
+  /*.dashboard-card-content {
     text-align: center;
-  }
+  }*/
+
+.mat-card-header {
+    display: block;
+    text-align: center;
+}
+
+.mat-card-footer {
+  display: block;
+  margin: 0;
+  text-align: center;
+}
+
+.mat-card-header .mat-card-title, .mat-card-subtitle {
+  font-size: 18px;
+  font-weight: bold;
+}

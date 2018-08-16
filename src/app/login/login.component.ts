@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NavbarService } from '../Services/navbar.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   successUrl: string;
-  title = "Login";
+  title = "Please Sign In";
   hide = true;
   loginForm: FormGroup;  
 
@@ -32,9 +33,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private nav: NavbarService) { }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
+    this.nav.hide();
+    
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)

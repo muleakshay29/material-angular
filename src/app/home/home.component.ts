@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
+import { NavbarService } from '../Services/navbar.service';
 
 @Component({
   selector: 'app-home',
@@ -29,5 +30,12 @@ export class HomeComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private nav: NavbarService) {}
+
+  ngOnInit()
+  {
+    this.nav.show();
+  }
 }

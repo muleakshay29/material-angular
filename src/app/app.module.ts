@@ -49,6 +49,9 @@ import { ListComponent } from './list/list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { TitleService } from './Services/title.service';
+import { FooterComponent } from './footer/footer.component';
+import { NavbarService } from './Services/navbar.service';
+import { CityMasterComponent, CityDialog } from './city-master/city-master.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import { TitleService } from './Services/title.service';
     HeaderComponent,
     HomeComponent,
     ListComponent,
-    LoginComponent
+    LoginComponent,
+    FooterComponent,
+    CityMasterComponent,
+    CityDialog
   ],
   imports: [
     BrowserModule,
@@ -103,7 +109,8 @@ import { TitleService } from './Services/title.service';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [TitleService],
+  entryComponents: [CityDialog],
+  providers: [TitleService, NavbarService],
   bootstrap: [AppComponent]
 })
 
