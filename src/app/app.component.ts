@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { Component, Renderer2 } from '@angular/core';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,21 +8,29 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AppComponent {
   title = 'Mohalla';
-  hide = true;
+  previousUrl: string;
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-
-  getErrorMessage() 
+  constructor(private renderer: Renderer2, private router: Router) 
   {
-    return this.email.hasError('required') ? 'You must enter a value' :
-        this.email.hasError('email') ? 'Not a valid email' :
-            '';
-  }
+    this.router.events
+      .subscribe((event) => 
+      {
+        if (event instanceof NavigationStart) 
+        {
+          let currentUrlSlug = event.url.slice(1)
 
-  getMyStyles() {
-    let myStyles = {
-       'background': '#f8f9fa'
-    };
-    return myStyles;
-  } 
+          if (currentUrlSlug == "login") 
+          {
+            this.renderer.removeClass(document.body, 'bodyClass1');
+            this.renderer.addClass(document.body, 'bodyClass2');
+          }
+          else
+          {
+            this.renderer.removeClass(document.body, 'bodyClass2');
+            this.renderer.addClass(document.body, 'bodyClass1');
+          }
+        }
+      });
+ 
+  }
 }

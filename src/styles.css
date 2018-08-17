@@ -2,9 +2,25 @@
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-body{
+/*body{
+  background-color: #a0a2a5 !important;
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+}*/
+
+.bodyClass1{
 	background-color: #f8f9fa !important;
 	font-family: 'Roboto', sans-serif;
+	margin: 0;
+}
+
+.bodyClass2 {
+  background: url('./assets/images/bg1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  font-family: 'Roboto', sans-serif;
 	margin: 0;
 }
 
@@ -45,4 +61,57 @@ body{
 .text-center
 {
   text-align: center;
+}
+
+.text-left
+{
+  text-align: left;
+}
+
+.text-right
+{
+  text-align: right;
+}
+
+.material-icons
+{
+  font-size: 20px;
+}
+
+.custom-error
+{
+  font-size: 15px;
+  font-style: italic;
+}
+
+.mat-toolbar.mat-primary
+{
+  background: #343a40;
+}
+
+.mat-drawer
+{
+  background-color: #343a40;
+}
+
+.mat-nav-list .mat-list-item
+{
+  color: #fff;
+}
+
+.mat-header-cell
+{
+  text-align: center !important;
+  background-color: #212529;
+  color: #fff;
+}
+
+td.mat-cell
+{
+  border: 1px solid #dee2e6;
+  text-align: center;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  left: 10px !important;
 }

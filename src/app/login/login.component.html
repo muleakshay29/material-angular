@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
     <mat-grid-list cols="1" rowHeight="350px">
       <mat-grid-tile [colspan]="1" [rowspan]="1">
 
@@ -23,13 +23,14 @@
                   <mat-error *ngIf="loginForm.controls.password.invalid">{{getErrorMessage(2)}}</mat-error>
                   <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
-                <br><br><br>
             </div>
           </mat-card-content>
 
           <mat-card-footer>
             <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
-          </mat-card-footer>          
+            <br><br>
+            <mat-error class="text-left custom-error" *ngIf="loginError">*Invalid login.</mat-error>
+          </mat-card-footer>
         </mat-card>
 
       </mat-grid-tile>

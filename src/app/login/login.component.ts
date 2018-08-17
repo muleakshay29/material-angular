@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarService } from '../Services/navbar.service';
+import { AuthService } from "../Services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -12,10 +11,14 @@ import { NavbarService } from '../Services/navbar.service';
 })
 export class LoginComponent implements OnInit {
 
-  successUrl: string;
   title = "Please Sign In";
   hide = true;
   loginForm: FormGroup;  
+
+  successUrl: string;
+  unsuccessUrl: string;
+  loginCheck: any;
+  loginError: boolean = false;
 
   getErrorMessage(errorFlag) 
   {
@@ -31,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
+    private AuthService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private nav: NavbarService) { }
@@ -45,16 +48,35 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', Validators.required)
     });
 
+    this.AuthService.logout();
+
     this.successUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    this.unsuccessUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
   }
 
-  login()
+  loginSubmit()
   {
-    //const username = this.loginForm.controls.username.value;
-    //const password = this.loginForm.controls.password.value;
     if(this.loginForm.valid)
     {
+      const username = this.loginForm.controls.email.value;
+      const password = this.loginForm.controls.password.value;
+
+      this.AuthService.login(username, password)
+      .subscribe( (loginCheck) => this.checkLogin(loginCheck) );
+    }
+  }
+
+  checkLogin(data)
+  {
+    if(data === 1)
+    {
+      this.loginError = false;
       this.router.navigate([this.successUrl]);
+    }
+    else
+    {
+      this.loginError = true;
+      this.router.navigate([this.unsuccessUrl]);
     }
   }
 

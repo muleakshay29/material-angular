@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { HttpClientModule }    from '@angular/common/http';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -52,6 +53,7 @@ import { TitleService } from './Services/title.service';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarService } from './Services/navbar.service';
 import { CityMasterComponent, CityDialog } from './city-master/city-master.component';
+import { AuthService } from "./Services/auth.service";
 
 @NgModule({
   declarations: [
@@ -107,10 +109,11 @@ import { CityMasterComponent, CityDialog } from './city-master/city-master.compo
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   entryComponents: [CityDialog],
-  providers: [TitleService, NavbarService],
+  providers: [TitleService, NavbarService, AuthService],
   bootstrap: [AppComponent]
 })
 
