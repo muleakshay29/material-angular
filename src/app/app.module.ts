@@ -54,6 +54,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarService } from './Services/navbar.service';
 import { CityMasterComponent, CityDialog } from './city-master/city-master.component';
 import { AuthService } from "./Services/auth.service";
+import { MasterService } from "./Services/master.service";
 
 @NgModule({
   declarations: [
@@ -113,7 +114,7 @@ import { AuthService } from "./Services/auth.service";
     HttpClientModule
   ],
   entryComponents: [CityDialog],
-  providers: [TitleService, NavbarService, AuthService],
+  providers: [TitleService, NavbarService, AuthService, MasterService],
   bootstrap: [AppComponent]
 })
 

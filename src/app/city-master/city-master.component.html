@@ -1,49 +1,49 @@
 <mat-grid-list cols="2" rowHeight="400px">
   <mat-grid-tile [colspan]="2" [rowspan]="1">
-
     
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{title}}
-          </mat-card-title>
-        </mat-card-header>
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{title}}
+        </mat-card-title>
+      </mat-card-header>
 
-        <mat-card-content class="dashboard-card-content">
-          <div class="example-container">
-            <form [formGroup]="cityMaster" (ngSubmit)="addCity()" class="example-container">
+      <mat-card-content class="dashboard-card-content">
+        <div class="example-container">
+          <form [formGroup]="cityMaster" (ngSubmit)="onSubmit()" class="example-container">
 
-              <mat-form-field>
-                <mat-label>Country</mat-label>
-                <mat-select required formControlName="countryId">
-                  <mat-option>Choose Country</mat-option>
-                  <mat-option value="option">Option</mat-option>
-                </mat-select>
-                <mat-error *ngIf="cityMaster.controls.countryId.invalid">Country is required</mat-error>
-              </mat-form-field>
+            <mat-form-field>
+              <mat-label>Country</mat-label>
+              <mat-select required formControlName="countryId" (selectionChange)="fetchState()">
+                <mat-option>Choose Country</mat-option>
+                <mat-option *ngFor="let country of countryList" value="{{country.Country_id}}">{{ country.Country_name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.countryId.invalid">Country is required</mat-error>
+            </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>State</mat-label>
-                <mat-select required formControlName="stateId">
-                  <mat-option>Choose State</mat-option>
-                  <mat-option value="option">Option</mat-option>
-                </mat-select>
-                <mat-error *ngIf="cityMaster.controls.stateId.invalid">State is required</mat-error>
-              </mat-form-field>
+            <mat-form-field>
+              <mat-label>State</mat-label>
+              <mat-select required formControlName="stateId">
+                <mat-option>Choose State</mat-option>
+                <mat-option *ngFor="let state of stateList" value="{{state.State_id}}">{{ state.State_name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.stateId.invalid">State is required</mat-error>
+            </mat-form-field>
 
-              <mat-form-field>
-                  <input matInput placeholder="City Name" formControlName="cityName" required>
-                  <mat-error *ngIf="cityMaster.controls.cityName.invalid">City Name is required</mat-error>
-              </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="City Name" minlength="3" formControlName="cityName" required>
+                <mat-error *ngIf="f.cityName.invalid && f.cityName.errors.required">City Name is required</mat-error>
+                <mat-error *ngIf="f.cityName.invalid && !f.cityName.minLength">City name must be at least 3 characters long</mat-error>
+                
+            </mat-form-field>
 
-            </form>
-          </div>          
-        </mat-card-content>
+            <br><br>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!cityMaster.valid">Submit</button>
 
-        <mat-card-footer>
-          <button mat-raised-button color="primary" [disabled]="!cityMaster.valid">Submit</button>
-        </mat-card-footer>          
-      </mat-card>
+          </form>
+        </div>          
+      </mat-card-content>        
+    </mat-card>
 
   </mat-grid-tile>
 </mat-grid-list>

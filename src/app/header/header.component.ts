@@ -19,7 +19,8 @@ export class HeaderComponent implements OnDestroy {
     changeDetectorRef: ChangeDetectorRef, 
     media: MediaMatcher,
     private nav: NavbarService) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    //this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = media.matchMedia('(max-width: 1024px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }

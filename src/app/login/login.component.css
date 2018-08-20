@@ -2,12 +2,16 @@
     margin: 20px;
   }
 
-  .dashboard-card {
+  /*.dashboard-card {
     position: absolute;
     top: 15px;
     left: 15px;
     right: initial;
     bottom: initial;
+  }*/
+
+  .dashboard-card {
+    position: relative !important;
   }
 
   .more-button {

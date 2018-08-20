@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CityMasterComponent } from './city-master/city-master.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, data: {title: "Dashbord"} },
+  { path: '', component: LoginComponent, data: {title: "Login"} },
   { path: 'login', component: LoginComponent, data: {title: "Login"} },
   { path: 'home', component: HomeComponent, data: {title: "Dashbord"} },
   { path: 'list', component: ListComponent, data: {title: "List"} },

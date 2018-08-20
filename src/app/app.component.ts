@@ -19,7 +19,7 @@ export class AppComponent {
         {
           let currentUrlSlug = event.url.slice(1)
 
-          if (currentUrlSlug == "login") 
+          if (currentUrlSlug == "login" || currentUrlSlug == "") 
           {
             this.renderer.removeClass(document.body, 'bodyClass1');
             this.renderer.addClass(document.body, 'bodyClass2');

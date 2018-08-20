@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarService } from '../Services/navbar.service';
 import { AuthService } from "../Services/auth.service";
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit {
     private AuthService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private nav: NavbarService) { }
+    private nav: NavbarService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() 
   {
@@ -51,7 +53,14 @@ export class LoginComponent implements OnInit {
     this.AuthService.logout();
 
     this.successUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-    this.unsuccessUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
+    this.unsuccessUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  openSnackBar(loginSuccessMessage) 
+  {
+    this.snackBar.open(loginSuccessMessage, "", {
+      duration: 2000,
+    });
   }
 
   loginSubmit()
@@ -71,11 +80,13 @@ export class LoginComponent implements OnInit {
     if(data === 1)
     {
       this.loginError = false;
+      this.openSnackBar("Login successful");
       this.router.navigate([this.successUrl]);
     }
     else
     {
       this.loginError = true;
+      this.openSnackBar("Invalid login credentioals");
       this.router.navigate([this.unsuccessUrl]);
     }
   }

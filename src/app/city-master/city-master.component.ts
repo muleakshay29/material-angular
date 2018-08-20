@@ -3,6 +3,10 @@ import { NavbarService } from '../Services/navbar.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
+import { MasterService } from "../Services/master.service";
+import { fetchCountry, fetchState, fetchCity } from "../common-constants";
+import { map } from 'rxjs/operators';
 
 export interface CityElements {
   City_id: number;
@@ -13,7 +17,7 @@ export interface DialogData {
   City_name: string;
 }
 
-const cityList: CityElements[] = [
+const cityList2: fetchCity[] = [
   {
     City_id: 1,
     City_name: "Mumbai"
@@ -64,7 +68,7 @@ const cityList: CityElements[] = [
 export class CityMasterComponent implements OnInit {
 
   displayedColumns: string[] = ['Action', 'City_id', 'City_name'];
-  dataSource: MatTableDataSource<CityElements>;
+  dataSource: MatTableDataSource<fetchCity>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -75,6 +79,9 @@ export class CityMasterComponent implements OnInit {
   Country_id: number;
   State_id: number;
   City_name: string;
+  countryList: fetchCountry[];
+  stateList: fetchState[];
+  cityList: fetchCity[];
 
   openDialog(): void 
   {
@@ -86,13 +93,26 @@ export class CityMasterComponent implements OnInit {
 
   constructor(
     private nav: NavbarService,
-    public dialog: MatDialog) 
-  { 
-    this.dataSource = new MatTableDataSource(cityList);
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    private MasterService: MasterService) 
+  {    
+    this.fetchCity();    
   }
 
-  ngOnInit() {
+  openSnackBar(loginSuccessMessage) 
+  {
+    this.snackBar.open(loginSuccessMessage, "", {
+      duration: 2000,
+    });
+  }
+
+  ngOnInit() 
+  {
     this.nav.show();
+    this.fetchCountry();
+
+    //this.dataSource = new MatTableDataSource(cityList2);
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -100,9 +120,14 @@ export class CityMasterComponent implements OnInit {
     this.cityMaster = new FormGroup({
       countryId: new FormControl('', Validators.required),
       stateId: new FormControl('', Validators.required),
-      cityName: new FormControl('', Validators.required)
+      cityName: new FormControl('', [
+                                      Validators.required,
+                                      Validators.minLength(3)
+                                ])
     });
   }
+
+  get f() { return this.cityMaster.controls; }
 
   applyFilter(filterValue: string) 
   {
@@ -110,6 +135,54 @@ export class CityMasterComponent implements OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  fetchCountry()
+  {
+    this.MasterService.fetchCountry()
+                      .subscribe( countryList => this.countryList = countryList );
+  }
+
+  fetchState(event)
+  {
+    const countryId = this.cityMaster.controls.countryId.value;
+    this.MasterService.fetchState(countryId)
+                      .subscribe( stateList => this.stateList = stateList );
+  }
+
+  fetchCity()
+  {
+    this.MasterService.fetchCity()
+                      .pipe(
+                        map( data => {
+                          console.log(data);
+                          this.dataSource = new MatTableDataSource(data);
+                          this.cityList = data;
+                        })
+                      );
+                      //.subscribe( cityList => this.cityList = cityList );
+  }
+
+  onSubmit()
+  {
+    console.log(cityList2);
+    console.log(this.cityList);
+
+    /*const cityData = this.cityMaster.value;
+    this.MasterService.addCity(cityData)
+                      .subscribe( (addCity) => this.addCity(addCity) );*/
+  }
+
+  addCity(data)
+  {
+    if(data > 0)
+    {
+      this.openSnackBar("City created successfuly.");
+    }
+    else
+    {
+      this.openSnackBar("Error creating City.");
     }
   }
 
