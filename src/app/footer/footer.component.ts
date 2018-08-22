@@ -9,7 +9,7 @@ import { NavbarService } from '../Services/navbar.service';
 export class FooterComponent implements OnInit {
 
   constructor(
-    private nav: NavbarService) {}
+    public nav: NavbarService) {}
 
   ngOnInit() {
   }

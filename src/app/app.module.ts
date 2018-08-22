@@ -46,26 +46,25 @@ import { HeaderComponent } from './header/header.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { ListComponent } from './list/list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { TitleService } from './Services/title.service';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarService } from './Services/navbar.service';
-import { CityMasterComponent, CityDialog } from './city-master/city-master.component';
+import { CityMasterComponent } from './city-master/city-master.component';
 import { AuthService } from "./Services/auth.service";
 import { MasterService } from "./Services/master.service";
+import { CityEditComponent } from './city-master/city-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    ListComponent,
     LoginComponent,
     FooterComponent,
     CityMasterComponent,
-    CityDialog
+    CityEditComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +112,7 @@ import { MasterService } from "./Services/master.service";
     AppRoutingModule,
     HttpClientModule
   ],
-  entryComponents: [CityDialog],
+  entryComponents: [],
   providers: [TitleService, NavbarService, AuthService, MasterService],
   bootstrap: [AppComponent]
 })

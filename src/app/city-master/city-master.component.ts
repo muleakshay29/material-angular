@@ -1,64 +1,16 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { NavbarService } from '../Services/navbar.service';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { MasterService } from "../Services/master.service";
-import { fetchCountry, fetchState, fetchCity } from "../common-constants";
+import { fetchCountry, fetchState, fetchCity, editCity } from "../common-constants";
 import { map } from 'rxjs/operators';
-
-export interface CityElements {
-  City_id: number;
-  City_name: string;
-}
 
 export interface DialogData {
   City_name: string;
 }
-
-const cityList2: fetchCity[] = [
-  {
-    City_id: 1,
-    City_name: "Mumbai"
-  },
-  {
-    City_id: 2,
-    City_name: "Nagpur"
-  },
-  {
-    City_id: 3,
-    City_name: "Pune"
-  },
-  {
-    City_id: 4,
-    City_name: "Nashik"
-  },
-  {
-    City_id: 5,
-    City_name: "Kolhapur"
-  },
-  {
-    City_id: 6,
-    City_name: "Nanded"
-  },
-  {
-    City_id: 7,
-    City_name: "Satara"
-  },
-  {
-    City_id: 8,
-    City_name: "Aurangabad"
-  },
-  {
-    City_id: 9,
-    City_name: "Nagar"
-  },
-  {
-    City_id: 10,
-    City_name: "Dhule"
-  },
-];
 
 @Component({
   selector: 'app-city-master',
@@ -78,21 +30,24 @@ export class CityMasterComponent implements OnInit {
 
   Country_id: number;
   State_id: number;
-  City_name: string;
+  //City_name: string;
+  //City_id: number;
   countryList: fetchCountry[];
   stateList: fetchState[];
   cityList: fetchCity[];
+  cityDetails: editCity;
+  isLoadingResults = false;
 
-  openDialog(): void 
+  /*openDialog(CityName, CityId): void 
   {
     const dialogRef = this.dialog.open(CityDialog, {
       width: '350px',
-      data: {City_name: this.City_name}
+      data: {City_name: CityName, City_id: CityId}
     });
-  }
+  }*/
 
   constructor(
-    private nav: NavbarService,
+    public nav: NavbarService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private MasterService: MasterService) 
@@ -112,17 +67,12 @@ export class CityMasterComponent implements OnInit {
     this.nav.show();
     this.fetchCountry();
 
-    //this.dataSource = new MatTableDataSource(cityList2);
-
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
     this.cityMaster = new FormGroup({
       countryId: new FormControl('', Validators.required),
       stateId: new FormControl('', Validators.required),
       cityName: new FormControl('', [
                                       Validators.required,
-                                      Validators.minLength(3)
+                                      //Validators.minLength(3)
                                 ])
     });
   }
@@ -154,52 +104,112 @@ export class CityMasterComponent implements OnInit {
   fetchCity()
   {
     this.MasterService.fetchCity()
-                      .pipe(
-                        map( data => {
-                          console.log(data);
-                          this.dataSource = new MatTableDataSource(data);
-                          this.cityList = data;
-                        })
-                      );
-                      //.subscribe( cityList => this.cityList = cityList );
+        .subscribe(cityList => 
+          {
+            this.cityList = cityList;
+            this.dataSource = new MatTableDataSource(this.cityList);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          });
   }
 
-  onSubmit()
+  onSubmit(formDirective: FormGroupDirective)
   {
-    console.log(cityList2);
-    console.log(this.cityList);
-
-    /*const cityData = this.cityMaster.value;
+    this.isLoadingResults = true;
+    const cityData = this.cityMaster.value;
     this.MasterService.addCity(cityData)
-                      .subscribe( (addCity) => this.addCity(addCity) );*/
+                      .subscribe( (addCity) => this.addCity(addCity, formDirective) );
   }
 
-  addCity(data)
+  addCity(data, formDirective: FormGroupDirective)
   {
     if(data > 0)
     {
       this.openSnackBar("City created successfuly.");
+      formDirective.resetForm();
+      this.cityMaster.reset();
+      this.cityMaster.markAsPristine();
+      this.cityMaster.markAsUntouched();
+      this.cityMaster.updateValueAndValidity();
+      this.fetchCity();
+      this.isLoadingResults = false;
     }
     else
     {
+      this.isLoadingResults = false;
       this.openSnackBar("Error creating City.");
     }
   }
 
+  deleteCity(cityId)
+  {
+    this.isLoadingResults = true;
+    this.MasterService.cityDelete(cityId)
+                      .subscribe( deleteCity =>
+                        {
+                          if( deleteCity > 0 )
+                          {
+                            this.openSnackBar("City deleted successfully.");
+                            this.fetchCity();
+                            this.isLoadingResults = false;
+                          }
+                          else
+                          {
+                            this.openSnackBar("Error creating City.");
+                            this.isLoadingResults = false;
+                          }
+                        }
+                      );
+  }
+
 }
 
+
+
+
+/**
+ * ************This block is used for popup dialogue******************
+ 
 @Component({
   selector: 'city-dialog',
   templateUrl: 'city-dialog.html',
 })
-export class CityDialog {
-
+export class CityDialog 
+{
   constructor(
     public dialogRef: MatDialogRef<CityDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private MasterService: MasterService,
+    public snackBar: MatSnackBar) {}
 
-  onNoClick(): void {
+  openSnackBar(loginSuccessMessage) 
+  {
+    this.snackBar.open(loginSuccessMessage, "", {
+      duration: 2000,
+    });
+  }
+
+  deletConfirm(City_id): void 
+  {
+    console.log(City_id)
+    //this.dialogRef.close();
+
+    this.MasterService.cityDelete(City_id)
+                      .subscribe( deleteCity =>
+                        {
+                          if( deleteCity > 0 )
+                          {
+                            this.openSnackBar("City deleted successfully.");
+                            //this.fetchCity();
+                          }
+                          else
+                          {
+                            this.openSnackBar("Error creating City.");
+                          }
+                        }
+                      );
     this.dialogRef.close();
   }
 
 }
+*/

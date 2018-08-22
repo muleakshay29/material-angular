@@ -1,0 +1,49 @@
+<mat-grid-list cols="2" rowHeight="400px">
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{title}}
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="dashboard-card-content">
+        <div class="example-container">
+          <form [formGroup]="cityMaster" (ngSubmit)="onSubmit()" class="example-container">
+
+            <mat-form-field>
+              <mat-label>Country</mat-label>
+              <mat-select required formControlName="countryId" (selectionChange)="fetchState()" autofocus>
+                <mat-option>Choose Country</mat-option>
+                <mat-option *ngFor="let country of countryList" value="{{country.Country_id}}">{{ country.Country_name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.countryId.invalid">Country is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>State</mat-label>
+              <mat-select required formControlName="stateId">
+                <mat-option>Choose State</mat-option>
+                <mat-option *ngFor="let state of stateList" value="{{state.State_id}}">{{ state.State_name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.stateId.invalid && (f.stateId.dirty || f.stateId.touched)">State is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="City Name" formControlName="cityName" required>
+                <mat-error *ngIf="f.cityName.invalid && f.cityName.errors.required">City Name is required</mat-error>
+                <!-- <mat-error *ngIf="f.cityName.invalid && !f.cityName.minLength">City name must be at least 3 characters long</mat-error> -->
+                <input formControlName="cityId" type="hidden" />
+            </mat-form-field>
+
+            <br><br>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!cityMaster.valid">Submit</button>
+
+          </form>
+        </div>          
+      </mat-card-content>        
+    </mat-card>
+
+  </mat-grid-tile>
+</mat-grid-list>

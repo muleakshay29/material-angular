@@ -115,3 +115,12 @@ td.mat-cell
 .cdk-overlay-connected-position-bounding-box {
   left: 10px !important;
 }
+
+.mat-progress-spinner
+{
+  z-index: 9999;
+}
+
+table.mat-table {
+  z-index: 0;
+}

@@ -19,7 +19,21 @@ export class fetchState {
   State_name : string;
 }
 
-export interface fetchCity {
+export class fetchCity {
   City_id: number;
   City_name: string;
+}
+
+export class editCity {
+  Country_id: number;
+  State_id : number;
+  City_id: number;
+  City_name: string;
+}
+
+export class updateCity {
+  cityId: number;
+  cityName: string;
+  countryId: number;
+  stateId: number;
 }

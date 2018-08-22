@@ -7,20 +7,18 @@ import { NavbarService } from '../Services/navbar.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent {
   
   mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
 
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
-
   constructor(
     changeDetectorRef: ChangeDetectorRef, 
     media: MediaMatcher,
-    private nav: NavbarService) {
+    public nav: NavbarService) {
     //this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQuery = media.matchMedia('(max-width: 1024px)');
+    this.mobileQuery = media.matchMedia('(max-width: 1500px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }

@@ -22,17 +22,17 @@ export class AuthService {
   /** ****************Login***************** **/
     login(username: string, password: string): Observable<login> 
     {
-      const loginCheckURL = `http://localhost/react-crud/api/login.php`;
+      const loginCheckURL = `https://mohalla.igainapp.in/MohallaAPI/api/login.php`;
 
       return this.http.post<login>(loginCheckURL, {username: username, password: password} )
             .pipe(map(user => {
                     // login successful if there's a jwt token in the response
-                    if (user) 
+                    /*if (user) 
                     {
                       this.loggedIn.next(true);
                       // store user details and jwt token in local storage to keep user logged in between page refreshes
                       localStorage.setItem('currentUser', JSON.stringify(user));
-                    }
+                    }*/
 
                     return user;
                   })
