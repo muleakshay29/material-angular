@@ -1,34 +1,53 @@
 .example-container {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 740px;
+  overflow: auto;
+}
   
-  .example-container > * {
-    width: 100%;
-  }
+.example-container > * {
+  width: 100%;
+}
   
-  .example-container form {
-    margin-bottom: 20px;
-  }
-  
-  .example-container form > * {
-    margin: 5px 0;
-  }
-  
-  .example-container .mat-radio-button {
-    margin: 0 5px;
-  }
+.example-container form {
+  margin-bottom: 20px;
+}
 
+.example-container form > * {
+  margin: 5px 0;
+}
+  
+.example-container .mat-radio-button {
+  margin: 0 5px;
+}
+
+mat-card.tableCard mat-form-field.mat-form-field {
+  width: 100%;
+}
+
+/*--------------------Table css for more than 4 columns----------------------------*
   table {
     width: 100%;
   }
 
-  .example-container {
-    height: 740px;
+  .example-table-container {
+    width: 900px;
+  }
+
+  mat-card.tableCard mat-form-field.mat-form-field {
+    width: 90%;
+  }
+
+  mat-card-content.mat-card-content {
     overflow: auto;
   }
 
-  /*th.mat-header-cell
-  {
-    text-align: center !important;
-  }*/
+  td.mat-column-Action {
+    width: 70px;
+    padding-left: 0 !important;
+  }
+
+  th.mat-header-cell:first-child {
+    padding-left: 0 !important;
+  }
+/*--------------------Table css----------------------------*/

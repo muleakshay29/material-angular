@@ -22,7 +22,8 @@ export class AuthService {
   /** ****************Login***************** **/
     login(username: string, password: string): Observable<login> 
     {
-      const loginCheckURL = `https://mohalla.igainapp.in/MohallaAPI/api/login.php`;
+      //const loginCheckURL = `http://localhost/MohallaAPI/public/login`;
+      const loginCheckURL = `https://mohalla.igainapp.in/MohallaAPI/public/login`;
 
       return this.http.post<login>(loginCheckURL, {username: username, password: password} )
             .pipe(map(user => {

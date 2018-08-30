@@ -1,4 +1,4 @@
-<div class="grid-container">
+<!-- <div class="grid-container">
   <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
     <mat-grid-list cols="1" rowHeight="350px">
       <mat-grid-tile [colspan]="1" [rowspan]="1">
@@ -36,4 +36,47 @@
       </mat-grid-tile>
     </mat-grid-list>
   </form>
-</div>
+</div> -->
+
+<mat-grid-list cols="2" rowHeight="420px">
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{title}}
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="dashboard-card-content">
+        <div class="example-container">
+          <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()" class="example-container">
+
+            <mat-form-field>
+              <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+            <control-messages [control]="email"></control-messages>
+
+            <br>
+
+            <mat-form-field>
+              <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" formControlName="password">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </mat-form-field>
+            <control-messages [control]="password"></control-messages>
+
+            <br>
+            
+            <mat-grid-list cols="1" rowHeight="55px">
+              <mat-grid-tile>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </mat-grid-tile>
+</mat-grid-list>

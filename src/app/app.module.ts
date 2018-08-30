@@ -55,6 +55,8 @@ import { CityMasterComponent } from './city-master/city-master.component';
 import { AuthService } from "./Services/auth.service";
 import { MasterService } from "./Services/master.service";
 import { CityEditComponent } from './city-master/city-edit.component';
+import { ControlMessagesComponent } from "./validators/control-messages.component";
+import { AlreadyExistValidatorDirective } from './validators/already-exist-validator.directive';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { CityEditComponent } from './city-master/city-edit.component';
     LoginComponent,
     FooterComponent,
     CityMasterComponent,
-    CityEditComponent
+    CityEditComponent,
+    ControlMessagesComponent,
+    AlreadyExistValidatorDirective
   ],
   imports: [
     BrowserModule,

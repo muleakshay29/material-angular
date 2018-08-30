@@ -1,12 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-/*body{
-  background-color: #a0a2a5 !important;
-	font-family: 'Roboto', sans-serif;
+/* html {
+  background: url('./assets/images/bg1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
 	margin: 0;
-}*/
+} */
 
 .bodyClass1{
 	background-color: #f8f9fa !important;
@@ -18,8 +22,8 @@
   background: url('./assets/images/bg1.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  background-size: cover;
   -o-background-size: cover;
+  background-size: cover;
   font-family: 'Roboto', sans-serif;
 	margin: 0;
 }
@@ -123,4 +127,56 @@ td.mat-cell
 
 table.mat-table {
   z-index: 0;
+}
+
+control-messages {
+  font-size: 75%;
+  margin: 0 !important;
+}
+
+mat-card.tableCard.mat-card {
+  margin: 15px;
+}
+
+mat-form-field.tableCard.mat-form-field {
+  width: 100%;
+}
+
+mat-sidenav.mat-sidenav {
+  width: 200px;
+}
+
+.mat-divider {
+  border-top-color: rgba(255, 255, 255, 0.30);
+}
+
+.tableCard {
+  z-index: 0;
+}
+
+img.mLogo {
+  width: 150px;
+  margin-top: 8px;
+}
+
+table {
+  width: 100%;
+}
+
+/*----------------Data loading spinner css---------------*/
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*----------------Data loading spinner css---------------*/
+
+.example-container .mat-radio-button {
+  margin: 0 5px;
 }
