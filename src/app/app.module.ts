@@ -57,6 +57,7 @@ import { MasterService } from "./Services/master.service";
 import { CityEditComponent } from './city-master/city-edit.component';
 import { ControlMessagesComponent } from "./validators/control-messages.component";
 import { AlreadyExistValidatorDirective } from './validators/already-exist-validator.directive';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { AlreadyExistValidatorDirective } from './validators/already-exist-valid
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartModule
   ],
   entryComponents: [],
   providers: [TitleService, NavbarService, AuthService, MasterService],

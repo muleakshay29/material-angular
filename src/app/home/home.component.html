@@ -1,29 +1,4 @@
-<!-- <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div> -->
-
-<mat-grid-list cols="2" rowHeight="100px">
+<!-- <mat-grid-list cols="2" rowHeight="100px">
   <mat-grid-tile [colspan]="2" [rowspan]="1">
     <mat-card class="dashboard-card">
         <mat-card-header>
@@ -33,6 +8,8 @@
         </mat-card-header>
 
       <mat-card-content>
+        <div [chart]="chart"></div>
+        sdfsdfsdfsdf dsfsdf sdfsdf
       </mat-card-content>
 
       <mat-card-actions>
@@ -40,4 +17,82 @@
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>
+</mat-grid-list> -->
+
+<mat-grid-list cols="2" rowHeight="500" *ngIf="!mobileQuery.matches">
+  <mat-grid-tile>
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div [chart]="lineChart"></div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div [chart]="stockChart"></div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div [chart]="pieChart"></div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div [chart]="areaChart"></div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="2" rowHeight="500px" *ngIf="mobileQuery.matches">
+
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div class="example-container">
+          <div [chart]="stockChart"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div class="example-container">
+          <div [chart]="lineChart"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div class="example-container">
+          <div [chart]="pieChart"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-content class="dashboard-card-content">
+        <div class="example-container">
+          <div [chart]="areaChart"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
 </mat-grid-list>

@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   unsuccessUrl: string;
   loginCheck: any;
   loginError: boolean = false;
+  isLoading = false;
 
   getErrorMessage(errorFlag) {
     if (errorFlag == 2) {
@@ -79,6 +80,7 @@ export class LoginComponent implements OnInit {
 
   loginSubmit() {
     if (this.loginForm.valid) {
+      this.isLoading = true;
       const username = this.loginForm.controls.email.value;
       const password = this.loginForm.controls.password.value;
 
@@ -89,11 +91,13 @@ export class LoginComponent implements OnInit {
 
   checkLogin(data) {
     if (data === 1) {
+      this.isLoading = false;
       this.loginError = false;
       this.openSnackBar("Login successful");
       this.router.navigate([this.successUrl]);
     }
     else {
+      this.isLoading = false;
       this.loginError = true;
       this.openSnackBar("Invalid login credentioals");
       this.router.navigate([this.unsuccessUrl]);
